@@ -1,0 +1,45 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+    <form action="{{ url_for('bp_open.signup_post') }}" method="POST">
+        <input type="text" placeholder="First Name" name="first_name"/> <br/>
+        <input type="text" placeholder="Last Name" name="last_name"/> <br/>
+        <input type="email" placeholder="Email Address" name="email"/> <br/>
+        <input type="password" id="pwd1" oninput="verifyPassword()" placeholder="Password" name="password"/>
+        <span id="pwd-message"></span><br/>
+        <input type="password" id="pwd2" oninput="checkPassword()" placeholder="Repeat Password" disabled/> <br/>
+        <input type="submit" id="submit" value="Save" disabled/>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function checkPassword() {
+            let pwd1 = document.getElementById("pwd1");
+            let pwd2 = document.getElementById("pwd2");
+            document.getElementById("submit").disabled = pwd1.value !== pwd2.value;
+        }
+
+        function verifyPassword() {
+            let pwdInput = document.getElementById("pwd1");
+            let pwdMessage = document.getElementById("pwd-message");
+            let resultObj = CheckPassword(pwdInput.value);
+            pwdMessage.innerHTML = resultObj.message;
+            document.getElementById("pwd2").disabled = !resultObj.result;
+        }
+
+        function CheckPassword(inputtxt) {
+            let pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,1000}$/;
+            let obj = {}
+            if (inputtxt.match(pattern)) {
+                obj.result = true;
+                obj.message = "";
+            } else {
+                obj.result = false;
+                obj.message = "Password must be 6 characters long and contain at least 1 lower case letter, 1 upp case letter, 1 digit, and 1 special character."
+            }
+            return obj;
+        }
+
+    </script>
+{% endblock %}

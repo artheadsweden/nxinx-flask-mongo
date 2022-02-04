@@ -1,0 +1,50 @@
+{% extends "base_template.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/autocomplete.css') }}"/>
+{% endblock %}
+
+
+{% block content %}
+    <div class="card-content">
+        <div class="card">
+            <h1>Send a Message</h1>
+
+            <form action="{{ url_for('bp_user.message_post') }}" method="POST">
+                <div class="autocomplete" style="width:300px;">
+                    <input id="userName" type="text" name="to" placeholder="Send message to" autocomplete="off"/>
+                </div>
+                <div>
+                    <textarea name="message" placeholder="Enter message body (HTML is allowed)"></textarea> <br/>
+                </div>
+                <input type="submit" value="Send">
+            </form>
+
+        </div>
+    </div>
+
+    <h1>Mailbox</h1>
+
+    <table>
+        <tr>
+            <th>From</th>
+            <th>Date</th>
+            <th>Read</th>
+        </tr>
+        {% for message in messages %}
+            <tr>
+                <td>
+                    <a href="{{ url_for('bp_user.read_message', message_id=message._id) }}">{{ message.sender.full_name }}</a>
+                </td>
+                <td>{{ message.sent }}</td>
+                <td>{{ message.read }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='/js/autocomplete.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,163 @@
+.dropdown-title {
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
+}
+
+nav {
+
+    background: linear-gradient(90deg, rgba(45,61,77,1) 0%, rgba(69,93,117,1) 35%, rgba(56,92,99,1) 100%);
+
+    padding: 0 1rem;
+    position: sticky;
+    top: 0;
+    display: grid;
+    place-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+    box-shadow: 5px 0 10px 10px black;
+}
+
+nav > ul {
+    grid-auto-flow: column;
+}
+
+nav > ul > li {
+    margin: 0 0.5rem;
+}
+
+nav > ul > li a,
+nav > ul > li .dropdown-title {
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    font-size: 1.125rem;
+}
+
+nav > ul > li a:focus,
+nav > ul > li .dropdown-title:focus {
+    outline: none;
+}
+
+nav > ul > li > a,
+nav > ul > li .dropdown-title {
+    padding: 1rem 0.5rem;
+    border-top: 3px solid transparent;
+    transition: 280ms all 120ms ease-out;
+}
+
+nav > ul > li > a:hover,
+nav > ul > li > a:focus,
+nav > ul > li .dropdown-title:hover,
+nav > ul > li .dropdown-title:focus {
+    border-top-color: pink;
+    color: pink;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+}
+
+nav ul li {
+    padding: 0;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown .dropdown-title {
+    display: inline-flex;
+    align-items: center;
+}
+
+.dropdown .dropdown-title:after {
+    content: "";
+    border: 0.35rem solid transparent;
+    border-top-color: rgba(255, 255, 255, 0.45);
+    margin-left: 0.25em;
+    transform: translateY(0.15em);
+}
+
+.dropdown .dropdown-menu {
+    position: absolute;
+    min-width: 15ch;
+    left: 50%;
+    top: calc(100% - 0.25rem);
+    transition: 280ms all 120ms ease-out;
+    transform: rotateX(-90deg) translateX(-50%);
+    transform-origin: top center;
+    visibility: hidden;
+    opacity: 0.3;
+    padding: 0.5em 0;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0.15em 0.25em rgba(0, 0, 0, 0.25);
+}
+
+.dropdown .dropdown-menu a {
+    color: #47246b;
+    display: block;
+    padding: 0.5em;
+    opacity: 0;
+    transition: 280ms all 120ms ease-out;
+}
+
+.dropdown .dropdown-menu a:hover {
+    background-color: rgba(102, 51, 153, 0.15);
+}
+
+.dropdown .dropdown-menu a:focus {
+    outline: none;
+    background-color: rgba(102, 51, 153, 0.25);
+}
+
+.dropdown:after {
+    content: "";
+    border: 0.5rem solid transparent;
+    border-bottom-color: #fff;
+    position: absolute;
+    top: calc(100% - 1.25rem);
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 280ms all 120ms ease-out;
+    opacity: 0;
+    will-change: opacity;
+}
+
+.dropdown:hover .dropdown-title,
+.dropdown:focus-within .dropdown-title {
+    border-top-color: pink;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    transform: rotateX(0) translateX(-50%);
+    visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu a,
+.dropdown:focus-within .dropdown-menu a {
+    opacity: 1;
+}
+
+.dropdown:hover:after,
+.dropdown:focus-within:after {
+    opacity: 1;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.avatar-big {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}

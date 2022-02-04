@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arthead Education</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main-style.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ah-menu.css') }}"/>
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    <div class="content">
+        <nav class="ah-nav" aria-label="Main Navigation">
+            <ul>
+                <li><a href="{{ url_for('bp_open.index') }}">Home</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">Contact</a></li>
+                {% if current_user.is_authenticated %}
+                <li class="dropdown">
+                    <!-- aria-expanded needs managed with Javascript -->
+                    <button type="button" class="dropdown-title" aria-expanded="false" aria-controls="user-dropdown">
+                        <a href="javascript:void(0)"><img src="{{ current_user.avatar }}" alt="Avatar" class="avatar"></a>
+                    </button>
+                    <ul class="dropdown-menu" id="user-dropdown">
+                        <li><a href="{{ url_for('bp_user.profile_get') }}">Profile</a></li>
+                        <li><a href="#">My Courses</a></li>
+                        {% if current_user.access_level == 'admin' %}
+                            <li><a href="{{ url_for('bp_admin.admin_get') }}">Admin</a></li>
+                        {% endif %}
+                        <li><a href="#">
+                            <hr/>
+                        </a></li>
+                        <li><a href="{{ url_for('bp_user.signout_get') }}">Sign Out</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('bp_user.message_get') }}"><i id="message-symbol" class="fa fa-fw fa-envelope-open no-new-msg"><span class="sup" id="message-count"></span></i></a></li>
+                {% else %}
+                    <li><a href="{{ url_for('bp_open.signin_get') }}">Sign In/Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+{% block content %}
+{% endblock %}
+
+{% if current_user.is_authenticted %}
+    <script src="{{ url_for('static', filename='/js/check-message.js') }}"></script>
+{% endif %}
+{% block scripts %}
+{% endblock %}
+
+</body>
+</html>

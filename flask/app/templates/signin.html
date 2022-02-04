@@ -1,0 +1,79 @@
+{% extends "base_template.html" %}
+{% set active_page = "signin" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flip-form.css') }}"/>
+{% endblock %}
+{% block content %}
+
+    <div class="form-content">
+        <div class="flip-form">
+            <div id="flipper" class="flip-form-inner">
+                <div class="flip-form-front">
+                    <h3>Sign In</h3>
+                    <div class="slider-container">
+                        <span class="slider-label left">Sign In</span>
+                        <label class="switch">
+                            <input id="slide1" type="checkbox" onclick="rotate()">
+                            <span id="slide1a" class="slider round"></span>
+                        </label>
+                        <span class="slider-label right">Regiser</span>
+                    </div>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <div class="notification-container">
+                                {% for category, message in messages %}
+                                    {% if category == 'signin' %}
+                                        <div class="notification">
+                                            {{ message }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    <form autocomplete="off" class="ah-form" action="{{ url_for('bp_open.signin_post') }}"
+                          method="POST">
+                        <input type="email" name="email" placeholder="Email"/> <br/>
+                        <input type="password" name="password" placeholder="Password"/> <br/>
+                        <input type="checkbox" name="remember"/> Remember me <br/>
+                        <input class="primary" type="submit" value="Submit"/>
+                    </form>
+                </div>
+                <div class="flip-form-back">
+                    <h3>Register</h3>
+                    Sign In
+                    <label class="switch">
+                        <input id="slide2" type="checkbox" onclick="rotate()"/>
+                        <span id="slide2a" class="slider round"></span>
+                    </label>
+                    Register
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <div class="notification-container">
+                                {% for category, message in messages %}
+                                    {% if category == 'signup' %}
+                                        <div class="notification">
+                                            {{ message }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    <form autocomplete="off" class="ah-form" action="{{ url_for('bp_open.signup_post') }}" method="POST">
+                        <input type="text" name="first_name" placeholder="First Name"/> <br/>
+                        <input type="text" name="last_name" placeholder="Last Name"/> <br/>
+                        <input type="email" name="email" placeholder="Email"/> <br/>
+                        <input type="password" name="password" placeholder="Password"/> <br/>
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/flip-form.js') }}"></script>
+{% endblock %}

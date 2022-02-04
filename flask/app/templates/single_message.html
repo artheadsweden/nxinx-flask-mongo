@@ -1,0 +1,13 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+    <div class="card-content">
+        <div class="card">
+            <h3>Message from {{ message.sender.full_name }}</h3>
+            <h6>Sent: {{ message.sent }}</h6>
+            <hr />
+            <p>{{ message.message_body | safe }}</p>
+
+        </div>
+    </div>
+{% endblock %}

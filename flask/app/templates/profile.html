@@ -1,0 +1,31 @@
+{% extends "base_template.html" %}
+{% set active_page = "courses" %}
+
+{% block content %}
+    <div class="card-content">
+        <div class="card">
+            <h3>Profile page for {{ current_user.first_name }}</h3>
+            <hr />
+            <h4>Set colors to use avatar with your initials</h4>
+            <form action="{{ url_for('bp_user.avatar_color_post') }}" method="POST">
+                <input type="color" name="background_color" value="#{{ background_color }}"/> Background Color
+                <input type="color" name="color" value="#{{ color }}"/> Font Color
+                <input type="submit" value="Change avatar color"/>
+            </form>
+
+            <h4>Upload Avatar Picture</h4>
+            <form role="form" action="{{ url_for('bp_user.upload_avatar_post') }}" method="post" enctype=multipart/form-data>
+                <img src="{{ current_user.avatar }}" class="avatar-big" alt="avatar">
+                <label class="custom-file">
+
+                    <input type='file' id="getFile" name="photo">
+
+                    <span class="custom-file-control">Choose File</span>
+                </label>
+                <input type="submit" value="Upload Photo"/>
+            </form>
+
+
+        </div>
+    </div>
+{% endblock %}
