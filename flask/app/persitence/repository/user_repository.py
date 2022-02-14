@@ -10,6 +10,7 @@ def get_user_by_id(user_id):
 
 
 def get_user_by_email(email):
+    print('*'*80, 'hehe','*'*80, '\n', User.collection.database.client.server_info(), '\n', '*'*80, flush=True)
     return User.find(email=email).first_or_none()
 
 

@@ -2,7 +2,7 @@ setInterval(checkMsg, 10000);
 
 function checkMsg() {
 
-    fetch('http://127.0.0.1:5000/ajax/check_msg')
+    fetch('http://localhost/ajax/check_msg')
         .then(response => response.json())
         .then(respObj => {
             let msgSymbol = document.getElementById("message-symbol");

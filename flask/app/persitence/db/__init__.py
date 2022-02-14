@@ -20,6 +20,8 @@ def init_db(app):
     database = app.config["DB_NAME"]
     client = MongoClient(f'mongodb://{username}:{password}@{host}:{port}')
     db = client[database]
+    print('*'*80, '\n', f'mongodb://{username}:{password}@{host}:{port}', '\n', '*'*80, flush=True)
+    print('*'*80, '\n', db.client, '\n', '*'*80, flush=True)
 
 
 
@@ -46,6 +48,7 @@ class Document(dict, ABC):
     def save(self):
         if not self._id:
             del (self.__dict__['_id'])
+            print('*'*80, '\n', self.collection.database, '\n', '*'*80, flush=True)
             return self.collection.insert_one(self.__dict__)
         else:
             return self.collection.replace_one({'_id': self._id}, self.__dict__)

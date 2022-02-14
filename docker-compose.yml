@@ -1,6 +1,20 @@
 version: "3.0"
 
 services:
+  dnfm-mongo:
+    image: mongo:latest
+    container_name: "my-mongo-db"
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: s3cr37
+    volumes:
+      - "./db_dump:/dp_dump"
+    networks:
+      - backend
+
   dnfm_flaskapp:
     container_name: "my-flask-app"
     restart: always
@@ -11,19 +25,12 @@ services:
       - 8800:8800
     command: ./flask/docker-entrypoint-flask.sh
     depends_on:
-      - dnfm_mongo
-
-  dnfm_mongo:
-    image: mongo:latest
-    container_name: "my-mongo-db"
-    restart: always
-    ports:
-      - 27028:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 7082d9753301ab4da89bb950c253c6c3133cfe964f2d9d9339cf5e975d088fe6
-    volumes:
-      - "./db_dump:/dp_dump"
+      - dnfm-mongo
+    links:
+     - dnfm-mongo:dnfm-mongo
+    networks:
+      - frontend
+      - backend
 
   dnfm_nginx:
     container_name: "my-nginx"
@@ -36,4 +43,12 @@ services:
       - 80:80
     depends_on:
       - dnfm_flaskapp
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
 

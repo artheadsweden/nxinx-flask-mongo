@@ -6,6 +6,8 @@ ENV FLASK_APP=app
 
 ENV FLASK_RUN_HOST=0.0.0.0
 
+ENV MGDB_HOST=dnfm_mongo
+
 COPY ./flask/requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt

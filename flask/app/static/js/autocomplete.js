@@ -16,7 +16,7 @@ function autocomplete(input) {
             value: val
         }
 
-        fetch('http://127.0.0.1:5000/ajax/all_users', {
+        fetch('http://localhost/ajax/all_users', {
             method: 'post',
             headers: {
                 'Content-type': 'application/json'
